@@ -1,0 +1,56 @@
+# Defining Functions
+def finite_alpha_cut(a_mu, c_mu, d_mu, alpha):
+    return [a_mu + alpha * (c_mu - a_mu), d_mu - alpha * (d_mu - c_mu)]
+
+def finite_beta_cut(a_T, b_T, c_T, e_T, f_T, w_T, beta):
+    if beta <= w_T:
+        return [a_T, f_T]
+    else:
+        return [
+            [a_T, (beta * (a_T - b_T) - w_T * a_T + b_T) / (1 - w_T)],
+            [(beta * (c_T - b_T) - w_T * c_T + b_T) / (1 - w_T), (beta * (c_T - e_T) - w_T * c_T + e_T) / (1 - w_T)],
+            [(beta * (f_T - e_T) - w_T * f_T + e_T) / (1 - w_T), f_T]
+        ]
+
+def finite_gamma_cut(a_I, b_I, c_I, e_I, f_I, w_I, gamma):
+    if gamma >= w_I:
+        return [a_I, f_I]
+    else:
+        return [
+            [a_I, (a_I * w_I + gamma * (b_I - a_I)) / w_I],
+            [(c_I * w_I - gamma * (c_I - b_I)) / w_I, (c_I * w_I + gamma * (e_I - c_I)) / w_I],
+            [(f_I * w_I - gamma * (f_I - e_I)) / w_I, f_I]
+        ]
+
+def finite_delta_cut(a_F, b_F, c_F, e_F, f_F, w_F, delta):
+    if delta >= w_F:
+        return [a_F, f_F]
+    else:
+        return [
+            [a_F, (a_F * w_F + delta * (b_F - a_F)) / w_F],
+            [(c_F * w_F - delta * (c_F - b_F)) / w_F, (c_F * w_F + delta * (e_F - c_F)) / w_F],
+            [(f_F * w_F - delta * (f_F - e_F)) / w_F, f_F]
+        ]
+
+# Replace values here for computation
+a_mu, c_mu, d_mu = 1, 3, 5
+a_T, b_T, c_T, e_T, f_T, w_T = 1, 2, 3, 4, 5, 0.5
+a_I, b_I, c_I, e_I, f_I, w_I = 1, 2, 3, 4, 5, 0.5
+a_F, b_F, c_F, e_F, f_F, w_F = 1, 2, 3, 4, 5, 0.5
+
+# Replace values of alpha, beta, gamma, delta for computation
+alpha = 0.3
+beta = 0.6
+gamma = 0.4
+delta = 0.7
+
+# Computation of various cuts
+alpha_cut = finite_alpha_cut(a_mu, c_mu, d_mu, alpha)
+beta_cut = finite_beta_cut(a_T, b_T, c_T, e_T, f_T, w_T, beta)
+gamma_cut = finite_gamma_cut(a_I, b_I, c_I, e_I, f_I, w_I, gamma)
+delta_cut = finite_delta_cut(a_F, b_F, c_F, e_F, f_F, w_F, delta)
+
+print("Finite α-cut:", alpha_cut)
+print("Finite β-cut:", beta_cut)
+print("Finite γ-cut:", gamma_cut)
+print("Finite δ-cut:", delta_cut)
